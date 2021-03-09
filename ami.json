@@ -1,10 +1,10 @@
 {   
     "variables":{
-        "aws_access_key":"AKIA4HEAKRWMLVGCRLXO",
-        "aws_secret_key":"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",
+        "aws_access_key":"{{env `AWS_ACCESS_KEY_ID`}}",
+        "aws_secret_key":"{{env `AWS_SECRET_ACCESS_KEY`}}",
         "aws_region":"us-east-1",
-        "vpc_id":"vpc-077dba3d78276799a",
-        "subnet_id":"subnet-0128f7325fb5ed6dc",
+        "vpc_id":"",
+        "subnet_id":"{{env `subnet_id`}}",
         "source_ami":"ami-03d315ad33b9d49c4",
         "ssh_username": "ubuntu",
         "prod_account_id":"231232113671"
@@ -12,6 +12,7 @@
     "builders": [
       {
         "type": "amazon-ebs",
+        "profile": "dev",
         "access_key":  "{{user `aws_access_key`}}",
         "secret_key": "{{user `aws_secret_key`}}",
         "region":  "{{user `aws_region`}}",
