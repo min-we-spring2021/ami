@@ -1,16 +1,18 @@
 {   
     "variables":{
-        "aws_access_key":"AKIA4HEAKRWMFBU55FZH",
-        "aws_secret_key":"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",
+        "aws_access_key":"{{env `AWS_ACCESS_KEY_ID`}}",
+        "aws_secret_key":"{{env `AWS_SECRET_ACCESS_KEY`}}",
         "aws_region":"us-east-1",
-        "vpc_id":"vpc-0bf29ed788f72e880",
-        "subnet_id":"subnet-0e4cfbf65cd2c9095",
+        "vpc_id":"",
+        "subnet_id":"{{env `subnet_id`}}",
         "source_ami":"ami-03d315ad33b9d49c4",
-        "ssh_username": "ubuntu"
+        "ssh_username": "ubuntu",
+        "prod_account_id":"231232113671"
     },
     "builders": [
       {
         "type": "amazon-ebs",
+        "profile": "dev",
         "access_key":  "{{user `aws_access_key`}}",
         "secret_key": "{{user `aws_secret_key`}}",
         "region":  "{{user `aws_region`}}",
@@ -22,14 +24,13 @@
         "ami_name":"csye6225_{{timestamp}}",
         "ami_description":"Ubuntu AMI for CSYE 6225",
         "associate_public_ip_address": true,
-
+        "ami_users":["{{user `prod_account_id`}}"],
         "launch_block_device_mappings":[
             {
                 "device_name":"/dev/sda1",
                 "volume_size":8,
                 "volume_type":"gp2",
                 "delete_on_termination":true
-
              }
         ]
      }
@@ -42,10 +43,12 @@
             "FOO=foo"
        ],
        "inline": [
+         "sleep 30",
         "sudo apt-get update",
-        
-        "sudo apt-get install -f"
-
+        "sudo apt-get install nginx -y",
+        "sudo apt install unzip -y",
+        "sudo apt install nodejs npm -y",
+        "sudo apt install mysql-server mysql-client -y"
        ]
      }
    ]
