@@ -22,10 +22,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         
-      - name: add env
-        env:
-          aws_access_key:${{secrets.aws_access_key}}
-          aws_secret_key:${{secrets.aws_secret_key}}
+
+       
                   
           
       - name: Build Artifact
@@ -34,4 +32,6 @@ jobs:
           command: build
           target: ami.json
         env:
-          PACKER_LOG: 1
+          PACKER_LOG: 1 
+          aws_access_key: ${{secrets.aws_access_key}}
+          aws_secret_key: ${{secrets.aws_secret_key}}
