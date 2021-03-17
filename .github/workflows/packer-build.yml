@@ -1,13 +1,10 @@
-# This is a basic workflow to help you get started with Actions
-
-name: validate
+name: packer-build
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
+
+  pull_request_target:
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -15,25 +12,28 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "validate"
-  validate:
+  # This workflow contains a single job called "build"
+  build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v2
         
-      - name: Validate Packer Template
+
+       
+                  
+          
+      - name: Build Artifact
         uses: hashicorp/packer-github-actions@master
         with:
-          command: validate
-          arguments: -syntax-only # only validate syntax
+          command: build
           target: ami.json
         env:
-          PACKER_LOG: 1 # enable debug log for packer
-
-
-
+          PACKER_LOG: 1 
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_KEY}}
+          
+          
