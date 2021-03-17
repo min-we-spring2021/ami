@@ -24,10 +24,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         
-      - name: Fix Template
-        uses: hashicorp/packer-github-actions@master
-        with:
-          command: fix
+      - name: add env
+        env:
+          aws_access_key:${{secrets.aws_access_key}}
+          aws_secret_key:${{secrets.aws_secret_key}}
+                  
           
       - name: Build Artifact
         uses: hashicorp/packer-github-actions@master
