@@ -2,7 +2,7 @@ name: packer-build
 
 on:
   pull_request:
-    branches: [main]
+    types: [closed]
 
   # Allows you to run this workflow manually from the Actions
   workflow_dispatch:
