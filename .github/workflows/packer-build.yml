@@ -24,6 +24,7 @@ jobs:
 
       - name: Build Artifact
         uses: hashicorp/packer-github-actions@master
+        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
         with:
           command: build
           target: ami.json
