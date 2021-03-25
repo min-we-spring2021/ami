@@ -60,7 +60,8 @@
         "sudo ./aws/install",
         "wget https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm",
         "sudo apt-get install alien dpkg-dev debhelper build-essential -y",
-        "sudo alien  amazon-cloudwatch-agent.rpm > amazon-cloudwatch-agent.deb",
+        "sudo alien -d amazon-cloudwatch-agent.rpm",
+      
         "sudo dpkg -i amazon-cloudwatch-agent.deb"
         
        ]
