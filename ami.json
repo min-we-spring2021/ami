@@ -59,8 +59,9 @@
         "unzip awscliv2.zip",
         "sudo ./aws/install",
         "wget https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm",
-        "sudo apt-get install git",
-        "sudo rpm -U ./amazon-cloudwatch-agent.rpm"
+        "sudo apt-get install alien dpkg-dev debhelper build-essential",
+        "sudo alien -k --amazon-cloudwatch-agent.rpm",
+        "sudo dpkg -i amazon-cloudwatch-agent.rpm.deb"
         
        ]
      }
